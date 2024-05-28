@@ -1,0 +1,22 @@
+unmanaged implementation in class zcl_fc_ce_cocktail unique;
+strict ( 1 );
+
+define behavior for ZFC_CE_COCKTAIL
+
+lock master
+authorization master ( instance )
+{
+
+  association _steps;
+  action generateImage result [1..*] $self;
+  side effects { action generateImage affects entity _steps; }
+  field ( readonly ) Iddrink;
+}
+
+define behavior for ZFC_CE_COCKTAIL_STEPS
+lock dependent by _cocktail
+authorization dependent by _cocktail
+{
+  field ( readonly ) IdDrink, Idstep;
+  association _cocktail;
+}

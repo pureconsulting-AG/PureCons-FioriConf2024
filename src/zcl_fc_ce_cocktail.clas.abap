@@ -1,0 +1,5 @@
+CLASS zcl_fc_ce_cocktail DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zfc_ce_cocktail.
+ENDCLASS.
+
+CLASS zcl_fc_ce_cocktail IMPLEMENTATION.
+ENDCLASS.

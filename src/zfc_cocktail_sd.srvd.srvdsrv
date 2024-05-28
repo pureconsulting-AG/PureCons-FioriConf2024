@@ -1,0 +1,5 @@
+@EndUserText.label: 'Fiori Conf Cocktail Service Definition'
+define service ZFC_COCKTAIL_SD {
+  expose ZFC_CE_COCKTAIL       as Cocktail;
+  expose ZFC_CE_COCKTAIL_STEPS as Steps;
+}
