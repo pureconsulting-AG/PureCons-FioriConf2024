@@ -1,0 +1,197 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "zfioriconf2024",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.13.2",
+      "toolsId": "6aeb3393-e63e-45c9-a1c6-abd8e6be8d91"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zfc_cocktail_sb_v4/srvd/sap/zfc_cocktail_sd/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.10",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zfioriconf2024.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CocktailList",
+          "target": [
+            "CocktailList"
+          ]
+        },
+        {
+          "pattern": "Cocktail({key}):?query:",
+          "name": "CocktailObjectPage",
+          "target": [
+            "CocktailList",
+            "CocktailObjectPage"
+          ]
+        },
+        {
+          "name": "StepsStepsImagePage",
+          "pattern": "Cocktail({key})/_steps({_stepsKey}):?query:",
+          "target": [
+            "CocktailList",
+            "CocktailObjectPage",
+            "StepsStepsImagePage"
+          ]
+        }
+      ],
+      "targets": {
+        "CocktailList": {
+          "type": "Component",
+          "id": "CocktailList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Cocktail",
+              "variantManagement": "Page",
+              "navigation": {
+                "Cocktail": {
+                  "detail": {
+                    "route": "CocktailObjectPage"
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "CocktailObjectPage": {
+          "type": "Component",
+          "id": "CocktailObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Cocktail",
+              "navigation": {
+                "_steps": {
+                  "detail": {
+                    "route": "StepsStepsImagePage"
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/Cocktail({key})"
+        },
+        "StepsStepsImagePage": {
+          "type": "Component",
+          "id": "StepsStepsImagePage",
+          "name": "sap.fe.core.fpm",
+          "controlAggregation": "endColumnPages",
+          "options": {
+            "settings": {
+              "viewName": "zfioriconf2024.ext.view.StepsImage",
+              "contextPath": "/Cocktail/_steps"
+            }
+          },
+          "contextPattern": "/Cocktail({key})/_steps({_stepsKey})"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
